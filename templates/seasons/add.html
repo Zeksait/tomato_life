@@ -1,0 +1,14 @@
+{% extends 'seasons/base.html' %}
+
+{% block title %}Create season {{ season_id }} details{% endblock %}
+
+{% block body %}
+     <div>
+     <h3>Open new season</h3>
+     <form method="post">
+         <label for="season-name-id">Season name:</label>
+         <input id="season-name-id" name="season-name" type="text">
+         <button type="submit">Add</button>
+     </form>
+     </div>
+{% endblock %}
