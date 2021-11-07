@@ -5,7 +5,6 @@ from views.seasons import seasons_app
 
 app = Flask(__name__)
 app.register_blueprint(seasons_app, url_prefix="/seasons")
-
 app.config.update(
     SQLALCHEMY_DATABASE_URI="sqlite:///./seasons.db",
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
