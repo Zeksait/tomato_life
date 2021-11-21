@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from models.database import db
 from flask_migrate import Migrate
 from views.seasons import seasons_app
@@ -16,12 +16,9 @@ migrate = Migrate(app, db)
 @app.route("/")
 def hello_world():
     print(request.path)
-    return "<p>HELLO, WORLD!</p>"
+    return render_template("index.html", content='Test')
 
 
-@app.route("/hello/")
+@app.route("/dashboard/")
 def hello_name():
-    name = request.args.get('name', 'world')
-    return {
-        "message": f"Hello {name}"
-    }
+    return render_template("dashboard/index.html", content='Test')
