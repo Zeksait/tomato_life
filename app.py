@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_crontab import Crontab
 from werkzeug.exceptions import NotFound, BadRequest, InternalServerError
 from sqlalchemy.exc import IntegrityError, DatabaseError
+
 from models.database import db, History
 from views.sensors import sensors_app
 
@@ -26,19 +27,18 @@ def hello_world():
 
 
 @app.route("/dashboard/")
-def hello_name():
-    # data_str = json.dumps(sensors_history)  # 10 last values
-    return render_template("dashboard/index.html")  # data_str=data_str
+def dashboard():
+    moments = History.query.order_by(History.id).limit(10)  # Как выбрать последние 10?
+    return render_template("dashboard/index.html", moments=moments)  # data_str=data_str
 
 
 @crontab.job(hour="1")
-def get_sensor_value_every_hour():
+def get_sensor_value_every_hour():  # параметры обновляются каждый час
     sensors = db.query.all()
     for sensor in sensors:
         res = sensor.get_sensor_value()
         moment = History(sensor_name=sensor.name, sensor_status=sensor.status, sensor_value=res)
-
-    db.session.add(moment)
+        db.session.add(moment)
     try:
         db.session.commit()
     except IntegrityError:
