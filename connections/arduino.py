@@ -1,9 +1,6 @@
 import serial
 from ast import literal_eval
 
-ARDUINO_USB_PORT = '/dev/cu.usbserial-1410'
-SPEED_USB_PORT = 9600
-
 
 def get_value(port, port_speed, count_values: int = 10, count_to_error: int = 20,) -> list:
     temp = []
@@ -31,10 +28,10 @@ def get_value(port, port_speed, count_values: int = 10, count_to_error: int = 20
         print('Port Not Found!')
 
 
-def send_command(sensor=None, command: str = '1',) -> bool:
+def send_command(port, port_speed, command: str = '1',) -> bool:
 
     try:
-        with serial.Serial(ARDUINO_USB_PORT, SPEED_USB_PORT, timeout=1.0) as port:
+        with serial.Serial(port, port_speed, timeout=1.0) as port:
             port.write(str(b'?').encode())  # change command
             com_data = port.readline().decode('utf-8')
             if com_data == '!':

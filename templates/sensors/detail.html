@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block title -%}
+  Sensor {{ sensor.id }} details
+{%- endblock %}
+
+{% block body %}
+  <div>
+    <h3>id: {{ sensor.id }}</h3>
+    <h5>Название: {{ product.name }}</h5>
+    <h5>тип: {{ product.type }}</h5>
+    <h5>Статус: {{ product.status }}</h5>
+    <h5>Тип соединения: {{ product.type_connection }}</h5>
+    <h5>Адрес порта: {{ product.port_address }}</h5>
+    <h5>Скорость порта: {{ product.speed }}</h5>
+    <h5>Дата добавления: {{ product.created_at }}</h5>
+
+
+    <a class="" href="{{ url_for('products_app.list') }}">Back to list</a>
+  </div>
+
+{% endblock %}

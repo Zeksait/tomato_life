@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}Добавить новый датчик{% endblock %}
+
+{#{% block custom_css %}#}
+{#{% endblock %}#}
+{##}
+{#{% block custom_js %}#}
+{#{% endblock %}#}
+
+{% block content %}
+<div>
+    <h3>Добавить новый датчик</h3>
+    <form method="post">
+      <input class="" id="sensor-name-id" name="sensor-name" type="text" required>
+        <label for="sensor-name-id">Название датчика</label><br>
+        <input class="" id="sensor-type" name="sensor-type" type="text" required>
+        <label for="sensor-type">Тип датчика</label><br>
+      <input class="" id="sensor-type-connection" name="sensor-type_connection" type="text" required>
+        <label for="sensor-type-connection">Тип соединения</label><br>
+      <input class="" id="sensor-port-address" name="sensor-address" type="text" required>
+        <label for="sensor-port-address">Адрес порта</label><br>
+      <input class="" id="sensor-port-speed" name="sensor-speed" type="text" required>
+        <label for="sensor-port-speed">Скорость порта</label><br>
+
+      <button class="btn btn-primary" type="submit">Добавить</button>
+    </form>
+  </div>
+{% endblock %}

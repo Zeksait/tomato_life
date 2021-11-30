@@ -1,11 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
-from connections.arduino import get_value
-
 db = SQLAlchemy()
-
-
 
 
 class History(db.Model):
