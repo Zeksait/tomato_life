@@ -9,4 +9,4 @@ class History(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sensor_name = db.Column()  # from sensor object
     sensor_status = db.Column()  # from sensor object
-    sensor_value = db.Column(db.Float())
+    sensor_value = db.Column(db.Float)

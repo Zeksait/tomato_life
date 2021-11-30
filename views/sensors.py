@@ -9,13 +9,14 @@ from models.sensor import Sensor
 sensors_app = Blueprint('sensors_app', __name__)
 
 
-@sensors_app.route("/", endpoint='list')
-def get_season_list():
-    return render_template("sensors/index.html")
+@sensors_app.route("/", endpoint="list")
+def get_products_list():
+    sensors = Sensor.query.all()
+    return render_template("sensors/list.html", sensors=sensors)
 
 
 @sensors_app.route("/<int:sensor_id>/", endpoint='detail')
-def get_season(sensor_id: int):
+def get_sensor(sensor_id: int):
     sensor = Sensor.query.filter_by(id=sensor_id).one_or_none()
     if sensor is None:
         raise NotFound(f"Нет датчика с id {sensor_id}")

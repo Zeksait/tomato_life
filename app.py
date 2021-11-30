@@ -9,6 +9,12 @@ app = Flask(__name__)
 crontab = Crontab(app)
 app.register_blueprint(sensors_app, url_prefix="/sensors")
 app.debug = True
+app.config.update(
+    SQLALCHEMY_DATABASE_URI="sqlite:///./database.db",
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 
 @app.route("/")
@@ -19,8 +25,8 @@ def hello_world():
 
 @app.route("/dashboard/")
 def hello_name():
-    data_str = json.dumps(sensors_history)  # 10 last values
-    return render_template("dashboard/index.html", data_str=data_str)
+    # data_str = json.dumps(sensors_history)  # 10 last values
+    return render_template("dashboard/index.html")  # data_str=data_str
 
 
 @crontab.job(hour="1")

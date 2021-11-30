@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block title %}Список сенсоров{% endblock %}
+
+{#{% block custom_css %}#}
+{#{% endblock %}#}
+{##}
+{#{% block custom_js %}#}
+{#{% endblock %}#}
+
+{% block content %}
+  <div>
+    <ul>
+      {% for sensor in sensors %}
+        <li>
+          <a href="{{ url_for('sensors_app.detail', sensor_id=sensor.id) }}">
+            {{ sensor.name }} #{{ sensor.id }}</a>
+          добавлен {{ sensor.created_at }}
+        тип соединения {{ sensor.type_connection }}
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('sensors_app.add') }}">Добавить новый датчик</a>
+  </div>
+{% endblock %}
