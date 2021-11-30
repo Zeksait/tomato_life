@@ -1,13 +1,14 @@
 import json
 from flask import Flask, request, render_template
 from flask_migrate import Migrate
-from views.seasons import seasons_app
+from views.sensors import seasons_app
 from flask_crontab import Crontab
-from models.database import db, Sensor
-
+from models.database import db
+from views.sensors import sensors_app
 
 app = Flask(__name__)
 crontab = Crontab(app)
+app.register_blueprint(sensors_app, url_prefix="/sensors")
 app.debug = True
 
 

@@ -1,6 +1,5 @@
 import serial
 from ast import literal_eval
-from models.database import Sensor
 
 ARDUINO_USB_PORT = '/dev/cu.usbserial-1410'
 SPEED_USB_PORT = 9600

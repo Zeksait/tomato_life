@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.exceptions import NotFound, BadRequest
 
-seasons_app = Blueprint('seasons_app', __name__)
+sensors_app = Blueprint('sensors_app', __name__)
 
 
 @seasons_app.route("/", endpoint='list')
 def get_season_list():
-    return render_template("seasons/list.html")
+    return render_template("sensors/list.html")
 
 
 @seasons_app.route("/<int:season_id>/", endpoint='detail')
