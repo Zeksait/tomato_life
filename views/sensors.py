@@ -57,10 +57,10 @@ def add_sensor():
     try:
         db.session.commit()
     except IntegrityError:
-        print("Could not add product, got integrity error")
+        print("Could not add sensor, got integrity error")
         db.session.rollback()
-        raise BadRequest("Error adding new product, probably the name is not unique")
+        raise BadRequest("Error adding new sensor")
     except DatabaseError:
         print("Could not add product, got database error")
         db.session.rollback()
-        raise InternalServerError("Error adding new product")
+        raise InternalServerError("Error adding new sensor")

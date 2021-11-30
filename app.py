@@ -2,7 +2,9 @@ import json
 from flask import Flask, request, render_template
 from flask_migrate import Migrate
 from flask_crontab import Crontab
-from models.database import db
+from werkzeug.exceptions import NotFound, BadRequest, InternalServerError
+from sqlalchemy.exc import IntegrityError, DatabaseError
+from models.database import db, History
 from views.sensors import sensors_app
 
 app = Flask(__name__)
@@ -34,7 +36,18 @@ def get_sensor_value_every_hour():
     sensors = db.query.all()
     for sensor in sensors:
         res = sensor.get_sensor_value()
-        db.session.add()
+        moment = History(sensor_name=sensor.name, sensor_status=sensor.status, sensor_value=res)
 
+    db.session.add(moment)
+    try:
+        db.session.commit()
+    except IntegrityError:
+        print("Could not add moment history, got integrity error")
+        db.session.rollback()
+        raise BadRequest("Error adding new moment history")
+    except DatabaseError:
+        print("Could not add product, got database error")
+        db.session.rollback()
+        raise InternalServerError("Error adding new moment history")
 
 # last_ten_sensor_values = Sensor.query.order_by(Sensor.id.desc()).limit(10)
